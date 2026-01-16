@@ -1,15 +1,21 @@
+<?php require_once '../config.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>/b/ - Aleatório - Jorgechan</title>
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
     <div class="board-list">
-        [ <a href="../index.html">home</a> ] [ <a href="index.html">/b/</a> ] [ <a href="../soybr/index.html">/soybr/</a> ]
-        <span class="admin">[Admin: linkpark1]</span>
+        [ <a href="../index.php">home</a> ] [ <a href="index.php">/b/</a> ] [ <a href="../soybr/index.php">/soybr/</a> ]
+        
+        <?php if (isAdmin()): ?>
+            <span class="admin" style="color: green;">[Admin: ON]</span>
+            <a href="../logout.php" style="font-size: 8pt;">(sair)</a>
+        <?php else: ?>
+            <a href="../login.php" class="admin" style="text-decoration:none;">[Admin]</a>
+        <?php endif; ?>
     </div>
 
     <div class="board-title">/b/ - Aleatório</div>
@@ -22,119 +28,23 @@
     <div class="post-form-container">
         <form action="#" method="get">
             <table class="post-form">
-                <tr>
-                    <td class="label">Nome</td>
-                    <td><input type="text" name="name" value="Anônimo"></td>
-                </tr>
-                <tr>
-                    <td class="label">Assunto</td>
-                    <td><input type="text" name="subject"> <input type="submit" value="Postar"></td>
-                </tr>
-                <tr>
-                    <td class="label">Comentário</td>
-                    <td><textarea name="comento" rows="4" placeholder="Escreva aqui..."></textarea></td>
-                </tr>
-                <tr>
-                    <td class="label">Arquivo</td>
-                    <td><input type="file" name="upfile"></td>
-                </tr>
+                <tr><td class="label">Nome</td><td><input type="text" name="name" value="Anônimo"></td></tr>
+                <tr><td class="label">Assunto</td><td><input type="text" name="subject"> <input type="submit" value="Postar"></td></tr>
+                <tr><td class="label">Comentário</td><td><textarea name="comment" cols="35" rows="5"></textarea></td></tr>
             </table>
         </form>
     </div>
 
     <hr>
-
-    <div class="thread">
-        <div class="post op">
-            <div class="file-info">Arquivo: <a href="#">jorgito_feliz.jpg</a> (150 KB, 800x600)</div>
-            <img src="../790c8191287a389131ccb943681ac8e0.gif" alt="OP Image" class="thumbnail" width="100">
-            <div class="post-info">
-                <span class="subject">Bem-vindos ao /b/</span> 
-                <span class="name">Anônimo</span> 
-                05/23/24(Qui)12:00:01 No.12345678 [ <a href="#">Responder</a> ]
-            </div>
-            <div class="post-body">
-                Aqui é o /b/, o coração do Jorgechan. Poste qualquer coisa, mas siga as regras do Jorgito.
-                <br><br>
-                >ser eu<br>
-                >entrar no jorgechan<br>
-                >ver o jorgito abanando o rabo<br>
-                >feelsgoodman.jpg
-            </div>
-        </div>
-
-        <div class="post reply" style="margin-left: 50px;">
-            <div class="post-info">
-                <span class="name">Anônimo</span> 
-                05/23/24(Qui)12:05:22 No.12345679
-            </div>
-            <div class="post-body">
-                Baseado e jorgitopillado.
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
     <div class="thread">
         <div class="post op">
             <div class="post-info">
-                <span class="subject">Dúvida cruel</span> 
-                <span class="name">Anônimo</span> 
-                05/23/24(Qui)12:10:45 No.12345680 [ <a href="#">Responder</a> ]
+                <span class="subject">Dúvida relógio</span> <span class="name">Anônimo</span> 16/01/26(Sex)14:30:00 No.123456
             </div>
             <div class="post-body">
                 Alguém sabe onde vende o relógio do Jorgito original?
             </div>
         </div>
     </div>
-
-    <div class="footer">
-        [ <a href="index.html">1</a> ] [ <a href="#">2</a> ] [ <a href="#">3</a> ] [ <a href="#">4</a> ] [ <a href="#">5</a> ]
-    </div>
-<script>
-(function(){
-  const pwd = "linkpark1";
-  function setAdmin(on){
-    if(on){
-      document.documentElement.classList.add('admin-mode');
-      document.querySelectorAll('.admin').forEach(el => el.textContent = '[Admin: ON]');
-      sessionStorage.setItem('jorge_admin','1');
-    } else {
-      document.documentElement.classList.remove('admin-mode');
-      document.querySelectorAll('.admin').forEach(el => el.textContent = '[Admin]');
-      sessionStorage.removeItem('jorge_admin');
-    }
-  }
-
-  function ask(e){
-    const attempt = prompt('digite a senha meu nobre');
-    if(attempt === pwd){
-      setAdmin(true);
-      alert('Modo admin ativado');
-    } else {
-      alert('Senha incorreta');
-      setAdmin(false);
-    }
-  }
-
-  document.addEventListener('click', function(e){
-    if(e.target && e.target.classList && e.target.classList.contains('admin')){
-      ask(e);
-    }
-  });
-
-  document.addEventListener('keydown', function(e){
-    if((e.key === 'Enter' || e.key === ' ') && document.activeElement && document.activeElement.classList.contains('admin')){
-      e.preventDefault();
-      ask();
-    }
-  });
-
-  if(sessionStorage.getItem('jorge_admin') === '1'){
-    setAdmin(true);
-  }
-})();
-</script>
 </body>
 </html>
